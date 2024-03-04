@@ -1,27 +1,27 @@
 import { useEffect, useState } from 'react';
 // import { signOut } from '../utils/auth';
 import { useAuth } from '../utils/context/authContext';
-import { getTwentyProducts } from '../controllers/productData';
+import { getProducts } from '../controllers/productData';
 import ProductCard from '../components/ProductCard';
 
 function Home() {
   const [products, setProducts] = useState([]);
   const { user } = useAuth();
 
-  const getProducts = () => {
-    getTwentyProducts()?.then(setProducts);
+  const getAllProducts = () => {
+    getProducts()?.then(setProducts);
   };
 
   useEffect(() => {
-    getProducts();
+    getAllProducts();
   });
 
   return (
     <div>
       <h1>Hello {user.fbUser.displayName}!</h1>
-      <h3>Check out our latest products:</h3>
+      <h3>Viewing All products:</h3>
       {products.map((product) => (
-        <ProductCard key={product.id} productObj={product} onUpdate={getProducts} />
+        <ProductCard key={product.id} productObj={product} onUpdate={getAllProducts} />
       ))}
     </div>
   );
